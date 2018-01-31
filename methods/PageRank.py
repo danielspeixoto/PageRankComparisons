@@ -10,6 +10,7 @@ class PageRank:
 
     time = 0
     ranks = []
+    prob = 0.85
 
     def __init__(self, graph: DiGraph):
         self.graph = graph
@@ -25,7 +26,13 @@ class PageRank:
         self.time = time
 
         self.ranks = ranks
-        print("Ranks ready! " + str(self.ranks))
+        total = 0
+        for rank in ranks:
+            total += rank
+
+        print("total=" + str(total))
+        print("Ranks ready!")
+        print(ranks)
         return self.ranks
 
     __metaclass__ = abc.ABCMeta

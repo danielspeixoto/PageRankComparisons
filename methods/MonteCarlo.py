@@ -8,7 +8,6 @@ from methods.PageRank import PageRank
 
 
 class MonteCarlo(PageRank):
-    prob = 0.85
 
     def __init__(self, graph: DiGraph):
         super().__init__(graph)
@@ -25,7 +24,7 @@ class MonteCarlo(PageRank):
         return self.ranks
 
     def walk(self, node: int):
-        while random.random() > self.prob:
+        while random.random() < self.prob:
             edges = list(self.graph.edges(node))
             if len(edges) == 0:
                 break
