@@ -16,15 +16,17 @@ class PageRank:
         self.nodes = self.graph.nodes
         self.edges = self.graph.edges
         self.out_degree = self.graph.out_degree
+        self.node_count = len(self.nodes)
 
     def calculate(self) -> List[int]:
-        print("Calculating regular page rank...")
+        print("Calculating page rank...")
 
         ranks, time = duration.how_long(self.populate_ranks)
         self.time = time
 
-        print("Ranks ready! " + str(ranks))
-        return ranks
+        self.ranks = ranks
+        print("Ranks ready! " + str(self.ranks))
+        return self.ranks
 
     __metaclass__ = abc.ABCMeta
 

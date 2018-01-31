@@ -9,12 +9,12 @@ class RegularPageRank(PageRank):
     time = 0
     ranks = []
     # TODO Choose error properly
-    error = 0.0000001
+    error = 0.001
 
     def __init__(self, graph: DiGraph):
         super().__init__(graph)
 
-    def populate_ranks(self):
+    def populate_ranks(self)-> List[float]:
         initial = 1 / len(self.nodes)
         ranks = [initial for _ in range(len(self.nodes))]
 
@@ -24,14 +24,15 @@ class RegularPageRank(PageRank):
             self.ranks = ranks
             ranks = self.iterate(ranks)
 
+        return ranks
+
     def iterate(self, ranks: List[float]) -> List[float]:
-        nodes_count = len(self.nodes)
-        new_ranks = [0.0] * nodes_count
+        new_ranks = [0.0] * self.node_count
         for start, end in self.edges:
             new_ranks[end] += ranks[start] / self.out_degree[start] * self.prob
 
-        for i in range(nodes_count):
-            new_ranks[i] += (1 - self.prob) / nodes_count
+        for i in range(self.node_count):
+            new_ranks[i] += (1 - self.prob) / self.node_count
 
         return new_ranks
 
