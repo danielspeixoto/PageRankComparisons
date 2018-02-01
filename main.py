@@ -1,3 +1,5 @@
+from copy import copy, deepcopy
+
 import networkx as nx
 
 from methods import RegularPageRank
@@ -7,10 +9,11 @@ import data.facebookposts as fb
 
 print("Creating graph...")
 G = nx.DiGraph()
-# G.add_edges_from(fb.get_edges(3))
+# G.add_edges_from(fb.get_edges())
 G.add_edges_from([(0, 1)])
+# G.add_nodes_from([0])
 
-regular_pr = RegularPageRank.RegularPageRank(G)
+regular_pr = RegularPageRank.RegularPageRank(deepcopy(G))
 regular_pr.calculate()
 print("Regular=" + str(regular_pr.time) + "ms")
 

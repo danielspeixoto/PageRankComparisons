@@ -19,6 +19,13 @@ class PageRank:
         self.out_degree = self.graph.out_degree
         self.node_count = len(self.nodes)
 
+    def setup_graph(self, graph: DiGraph):
+        self.graph = graph
+        self.nodes = self.graph.nodes
+        self.edges = self.graph.edges
+        self.out_degree = self.graph.out_degree
+        self.node_count = len(self.nodes)
+
     def calculate(self) -> List[int]:
         print("Calculating page rank...")
 
@@ -30,8 +37,8 @@ class PageRank:
         for rank in ranks:
             total += rank
 
-        print("total=" + str(total))
         print("Ranks ready!")
+        print("total=" + str(total))
         print(ranks)
         return self.ranks
 
