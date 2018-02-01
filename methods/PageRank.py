@@ -18,6 +18,7 @@ class PageRank:
         self.edges = self.graph.edges
         self.out_degree = self.graph.out_degree
         self.node_count = len(self.nodes)
+        self.total = 0
 
     def setup_graph(self, graph: DiGraph):
         self.graph = graph
@@ -33,12 +34,11 @@ class PageRank:
         self.time = time
 
         self.ranks = ranks
-        total = 0
         for rank in ranks:
-            total += rank
+            self.total += rank
 
         print("Ranks ready!")
-        print("total=" + str(total))
+        print("total=" + str(self.total))
         return self.ranks
 
     __metaclass__ = abc.ABCMeta
