@@ -10,7 +10,7 @@ class PageRank:
 
     time = 0
     ranks = []
-    prob = 0.85
+    prob = 0.5
 
     def __init__(self, graph: DiGraph):
         self.graph = graph
@@ -26,10 +26,10 @@ class PageRank:
         self.out_degree = self.graph.out_degree
         self.node_count = len(self.nodes)
 
-    def calculate(self) -> List[int]:
+    def calculate(self, *args) -> List[int]:
         print("Calculating page rank...")
 
-        ranks, time = duration.how_long(self.populate_ranks)
+        ranks, time = duration.how_long(self.populate_ranks, *args)
         self.time = time
 
         self.ranks = ranks
@@ -39,7 +39,6 @@ class PageRank:
 
         print("Ranks ready!")
         print("total=" + str(total))
-        print(ranks)
         return self.ranks
 
     __metaclass__ = abc.ABCMeta

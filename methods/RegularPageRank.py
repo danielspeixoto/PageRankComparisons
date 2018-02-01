@@ -7,25 +7,28 @@ from methods.PageRank import PageRank
 class RegularPageRank(PageRank):
 
     # TODO Choose error properly
-    error = 0.00001
+    error = 1
 
     def __init__(self, graph: DiGraph):
         super().__init__(graph)
 
     def populate_ranks(self)-> List[float]:
-        initial = 1 / self.node_count
-        ranks = [initial] * self.node_count
+        ranks = [0] * self.node_count
+        # Removes dangling links
         removed_edges, self.graph = RegularPageRank.remove_dangling_links(self.graph)
         self.setup_graph(self.graph)
-        if self.node_count != 0:
-            self.ranks = ranks
-            ranks = self.iterate(ranks)
-            while not self.has_converged(ranks, self.error):
-                self.ranks = ranks
-                ranks = self.iterate(self.ranks)
 
+        # Calculates considering that there are no dangling links
+        self.ranks = ranks
+        ranks = self.iterate(ranks)
+        while not self.has_converged(ranks, self.error):
+            self.ranks = ranks
+            ranks = self.iterate(self.ranks)
+
+        # Insert dangling links again
         while len(removed_edges) > 0:
-            self.graph.add_edges_from(removed_edges.pop())
+            removed = removed_edges.pop()
+            self.graph.add_edges_from(removed)
             self.setup_graph(self.graph)
             ranks = self.iterate(ranks)
             while not self.has_converged(ranks, self.error):
@@ -40,7 +43,6 @@ class RegularPageRank(PageRank):
                 edges = list(self.graph.in_edges(node))
                 for edge in edges:
                     new_ranks[node] += ranks[edge[0]] / len(self.graph.out_edges(edge[0]))
-
                 new_ranks[node] *= self.prob
                 new_ranks[node] += (1 - self.prob) / self.node_count
         return new_ranks
@@ -54,12 +56,13 @@ class RegularPageRank(PageRank):
             edges = []
             has_dangling = False
             for node in graph.nodes:
-                if len(graph.out_edges(node)) == 0:
+                if len(graph.in_edges(node)) != 0 and len(graph.out_edges(node)) == 0:
                     has_dangling = True
-                    edges += graph.in_edges(node)
                     to_be_removed.append(node)
+                    edges += graph.in_edges(node)
 
-            removed.append(edges)
+            if len(edges) > 0:
+                removed.append(edges)
             for node in to_be_removed:
                 graph.remove_node(node)
 

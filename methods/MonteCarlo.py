@@ -13,13 +13,14 @@ class MonteCarlo(PageRank):
         super().__init__(graph)
         self.ranks = [0] * self.node_count
 
-    def populate_ranks(self)-> List[float]:
+    def populate_ranks(self, walks=1)-> List[float]:
         node_count = len(self.nodes)
-        for i in range(node_count):
-            self.ranks[self.walk(i)] += 1
+        for walk in range(walks):
+            for i in range(node_count):
+                self.ranks[self.walk(i)] += 1
 
         for i in range(node_count):
-            self.ranks[i] /= node_count
+            self.ranks[i] /= walks * node_count
 
         return self.ranks
 
