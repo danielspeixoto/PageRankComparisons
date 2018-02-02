@@ -2,7 +2,7 @@ def results(original, other):
     count = len(original)
     error = 0
     for i in range(len(original)):
-        error += pow(abs(original[i] - other[i]), 2)
+        error += abs(original[i] - other[i]) / original[i]
 
     return error/count
 

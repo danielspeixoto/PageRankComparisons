@@ -10,7 +10,7 @@ import data.facebookposts as fb
 
 print("Creating graph...")
 G = nx.DiGraph()
-G.add_edges_from(fb.get_edges(5))
+G.add_edges_from(fb.get_edges())
 # G.add_edges_from([(0, 1)])
 
 regular_pr = RegularPageRank.RegularPageRank(deepcopy(G))
@@ -25,10 +25,10 @@ for rank in n_ranks:
 print("nrank= " + str(total))
 
 monte_carlo = MonteCarlo(deepcopy(G))
-monte_carlo.calculate(5)
+monte_carlo.calculate(100)
 print("MonteCarlo=" + str(monte_carlo.time) + "ms")
 
-print("error=" + str(compare.results(monte_carlo.ranks, n_ranks) * len(G.nodes)))
+print("error=" + str(compare.results(monte_carlo.ranks, n_ranks)))
 results_comparison.compare(monte_carlo.ranks, n_ranks)
 
 
