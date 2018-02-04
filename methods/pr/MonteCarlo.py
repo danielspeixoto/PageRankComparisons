@@ -2,9 +2,7 @@ import random
 from networkx import DiGraph
 from typing import List
 
-from networkx.classes.reportviews import OutEdgeDataView
-
-from methods.PageRank import PageRank
+from methods.pr.PageRank import PageRank
 
 
 class MonteCarlo(PageRank):

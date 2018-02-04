@@ -1,7 +1,7 @@
 from networkx import DiGraph
-from typing import List, Tuple
+from typing import List
 
-from methods.PageRank import PageRank
+from methods.pr.PageRank import PageRank
 
 
 class RegularPageRank(PageRank):

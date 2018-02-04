@@ -1,11 +1,11 @@
-from copy import copy, deepcopy
+from copy import deepcopy
 
 import networkx as nx
 
 from comparison import compare
-from methods import RegularPageRank
-from methods.MonteCarlo import MonteCarlo
-from visualization import graph, results_comparison
+from methods.pr import RegularPageRank
+from methods.pr.MonteCarlo import MonteCarlo
+from visualization import results_comparison
 import data.facebookposts as fb
 
 print("Creating graph...")
