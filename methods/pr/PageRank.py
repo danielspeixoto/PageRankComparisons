@@ -10,7 +10,7 @@ class PageRank:
 
     time = 0
     ranks = []
-    prob = 0.5
+    prob = 0.85
 
     def __init__(self, graph: DiGraph):
         self.graph = graph

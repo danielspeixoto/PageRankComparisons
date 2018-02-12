@@ -6,11 +6,9 @@ from methods.pr.PageRank import PageRank
 
 class RegularPageRank(PageRank):
 
-    # TODO Choose error properly
-    error = 1
-
     def __init__(self, graph: DiGraph):
         super().__init__(graph)
+        self.error = 1/self.node_count
 
     def populate_ranks(self)-> List[float]:
         ranks = [0] * self.node_count
